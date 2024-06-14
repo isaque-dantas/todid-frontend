@@ -1,0 +1,10 @@
+<label for="todoItem-{{data.Id}}" class="flex cursor-pointer items-start gap-4 w-fit">
+  <div class="flex items-center">
+    &#8203;
+    <input type="checkbox" class="size-6 border-gray-300" id="todoItem-{{data.Id}}" [checked]="data.IsComplete"/>
+  </div>
+
+  <div>
+    <strong class="font-medium text-xl">{{data.Name }}</strong>
+  </div>
+</label>

@@ -1,0 +1,29 @@
+### GET request to example server
+GET https://examples.http-client.intellij.net/get
+  ?generated-in=WebStorm
+
+###
+POST http://localhost:5241/users
+Content-Type: application/json
+
+{
+  "Name": "Victor Fontana",
+  "Username": "v.fontana",
+  "Email": "v.fontana@gmail.com",
+  "Password": "12345678",
+  "Role": "common"
+}
+
+###
+POST http://localhost:5241/users/login
+Content-Type: application/json
+
+{
+  "Email": "v.fontana@gmail.com",
+  "Password": "12345678"
+}
+
+###
+GET http://localhost:5241/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIzMyIsInJvbGUiOiJjb21tb24iLCJuYmYiOjE3MTgzODY5MTQsImV4cCI6MTcxODM5NDExNCwiaWF0IjoxNzE4Mzg2OTE0fQ.DvAjtK655ZBzZbVUvFhmWpTa9P9Aq3r2usdmD9wj3mc
+

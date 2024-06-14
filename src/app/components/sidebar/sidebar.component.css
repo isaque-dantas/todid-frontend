@@ -1,0 +1,5 @@
+main {
+  max-width: 320px;
+  height: 100vh;
+  border-right: 1px solid var(--gray);
+}
