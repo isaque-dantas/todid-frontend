@@ -1,7 +1,9 @@
+import {TodoListData} from "./todo-list-data";
+
 export interface UserData {
-  Name: string,
-  Username: string,
-  Email: string,
-  Password: string,
-  Role: string,
+  name: string,
+  username: string,
+  email: string,
+  password?: string,
+  todoLists?: TodoListData[]
 }

@@ -1,6 +1,6 @@
-export interface TodoItemData {
-  Id: number,
-  IsComplete: boolean,
-  Name: string,
-  TodoListId: string
+import {TodoEntityData} from "./todo-entity-data";
+
+export interface TodoItemData extends TodoEntityData {
+  isComplete: boolean
+  todoListId: number
 }

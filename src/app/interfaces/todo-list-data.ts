@@ -1,9 +1,8 @@
 import {TodoItemData} from "./todo-item-data";
+import {TodoEntityData} from "./todo-entity-data";
 
-export interface TodoListData {
-  Id: number,
-  Name: string,
-  Color: string,
-  UserId: number,
-  TodoItems: TodoItemData[]
+export interface TodoListData extends TodoEntityData {
+  color: string,
+  userId: number,
+  todoItems: TodoItemData[]
 }

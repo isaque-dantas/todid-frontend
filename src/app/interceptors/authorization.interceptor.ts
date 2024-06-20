@@ -1,13 +1,13 @@
 import {HttpInterceptorFn} from '@angular/common/http';
-import {JwtTokenService} from "../services/jwt-token.service";
+import {AuthenticationService} from "../services/authentication.service";
+import {inject} from "@angular/core";
 
 export const authorizationInterceptor: HttpInterceptorFn = (req, next) => {
-  if (JwtTokenService.tokenExists()) {
-
-    const authorizedRequest =
-      req.clone({
-        headers: req.headers.set("Authorization", JwtTokenService.getToken()),
-      });
+  const service = inject(AuthenticationService);
+  if (service.tokenExists()) {
+    const authorizedRequest = req.clone(
+      { headers: req.headers.set("Authorization", service.getToken()) }
+    );
 
     return next(authorizedRequest);
   } else {
