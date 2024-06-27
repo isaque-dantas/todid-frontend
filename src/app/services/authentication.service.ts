@@ -1,9 +1,9 @@
-import {inject, Injectable} from '@angular/core';
-import {AuthResult} from "../interfaces/auth-result";
-import moment from "moment";
-import {Router} from "@angular/router";
-import {UserData} from "../interfaces/user-data";
-import {UserService} from "./user.service";
+import {inject, Injectable} from '@angular/core'
+import {AuthResult} from "../interfaces/auth-result"
+import {Router} from "@angular/router"
+import {UserData} from "../interfaces/user-data"
+import {UserService} from "./user.service"
+import dayjs from "dayjs"
 
 @Injectable({
   providedIn: 'root'
@@ -24,21 +24,21 @@ export class AuthenticationService {
   }
 
   getToken(): string {
-    return 'Bearer ' + localStorage.getItem(this.idTokenKey);
+    return 'Bearer ' + localStorage.getItem(this.idTokenKey)
   }
 
   setToken(authResult: AuthResult) {
-    const expiresAt = moment().add(authResult.expiresIn, 'second');
+    const expiresAt = dayjs().add(authResult.expiresIn, 'second')
 
-    localStorage.setItem(this.idTokenKey, authResult.idToken);
-    localStorage.setItem(this.expirationKey, JSON.stringify(expiresAt.valueOf()));
+    localStorage.setItem(this.idTokenKey, authResult.idToken)
+    localStorage.setItem(this.expirationKey, JSON.stringify(expiresAt.valueOf()))
 
     this.onUserChanging()
   }
 
   logout() {
-    localStorage.removeItem(this.idTokenKey);
-    localStorage.removeItem(this.expirationKey);
+    localStorage.removeItem(this.idTokenKey)
+    localStorage.removeItem(this.expirationKey)
 
     this.onUserChanging()
     this.router.navigateByUrl("/login")
@@ -48,18 +48,18 @@ export class AuthenticationService {
     if (!this.tokenExists())
       return false
 
-    return moment().isBefore(this.getExpiration());
+    return dayjs().isBefore(this.getExpiration())
   }
 
   isLoggedOut() {
-    return !this.isLoggedIn();
+    return !this.isLoggedIn()
   }
 
   getExpiration() {
-    const expiration = localStorage.getItem(this.expirationKey)!;
+    const expiration = localStorage.getItem(this.expirationKey)!
 
-    const expiresAt = JSON.parse(expiration);
-    return moment(expiresAt);
+    const expiresAt = JSON.parse(expiration)
+    return dayjs(expiresAt)
   }
 
   onUserChanging() {
