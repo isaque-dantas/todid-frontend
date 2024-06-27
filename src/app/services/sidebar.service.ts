@@ -4,7 +4,7 @@ import {EventEmitter, Injectable} from '@angular/core';
   providedIn: 'root'
 })
 export class SidebarService {
-  private sidebarOpenedStatusChanged = new EventEmitter<boolean>()
+  public openedStatusChanged = new EventEmitter<boolean>()
   private _isOpen!: boolean
 
   get isOpen() {
@@ -15,15 +15,11 @@ export class SidebarService {
 
   open() {
     this._isOpen = true;
-    this.sidebarOpenedStatusChanged.emit(this._isOpen);
+    this.openedStatusChanged.emit(this._isOpen);
   }
 
   close() {
     this._isOpen = false;
-    this.sidebarOpenedStatusChanged.emit(this._isOpen);
-  }
-
-  subscribe(f: (state: boolean) => void) {
-    this.sidebarOpenedStatusChanged.subscribe(f);
+    this.openedStatusChanged.emit(this._isOpen);
   }
 }

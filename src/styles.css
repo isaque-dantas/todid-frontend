@@ -10,7 +10,7 @@
 
     --primary: #D9B3FF;
     --white: #e4e7e7;
-    --gray: #9E9DA3;
+    --gray-: #9E9DA3;
     --black: #16141A;
   }
 
@@ -103,7 +103,7 @@
 
 @layer components {
   body {
-    background: var(--body-gradient);
+    background: var(--body-gradient) !important;
     color: var(--white);
 
     font-family: "Kumbh Sans", sans-serif;

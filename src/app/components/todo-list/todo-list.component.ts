@@ -30,9 +30,9 @@ export class TodoListComponent {
       name: new FormControl(''),
       color: new FormControl(''),
     })
-  private clickListener!: () => void;
 
-  constructor(private service: TodoListService, private elRef: ElementRef, private renderer: Renderer2) {
+  constructor(private service: TodoListService, private elRef: ElementRef) {
+    this.form.controls['color'].disable()
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -41,12 +41,6 @@ export class TodoListComponent {
         name: this.data.name,
         color: `#${this.data.color}`
       })
-    }
-  }
-
-  ngOnDestroy() {
-    if (this.clickListener) {
-      this.clickListener()
     }
   }
 
@@ -69,9 +63,9 @@ export class TodoListComponent {
   }
 
   finishEditing(): void {
+    console.log({todoListFormValue: this.form.value})
     if (this.form.value.name === "" || !this.formActivated)
       return;
-
 
     let formattedColor = this.form.value.color
     if (formattedColor) {

@@ -9,6 +9,10 @@ import {Component, ElementRef, Input} from '@angular/core';
 })
 export class BottomGradientComponent {
   @Input() parentElementId!: string
+  resizeObserver = new ResizeObserver((entries) => {
+      this.updatePosition()
+    }
+  )
 
   constructor(private elRef: ElementRef) {
   }
@@ -17,12 +21,13 @@ export class BottomGradientComponent {
     return this.elRef.nativeElement.querySelector("div")
   }
 
-  ngOnInit(): void {
-    // parent.addEventListener("resize", this.updatePosition)
-    window.addEventListener("resize", this.updatePosition.bind(this))
-    // document.addEventListener("fullscreenchange", this.updatePosition)
+  get parent(): Element {
+    return document.getElementById(this.parentElementId)!
+  }
 
-    // this.updatePosition()
+  ngOnInit(): void {
+    window.addEventListener("resize", this.updatePosition.bind(this))
+    this.resizeObserver.observe(this.parent)
   }
 
   ngAfterContentInit() {
@@ -30,8 +35,6 @@ export class BottomGradientComponent {
   }
 
   updatePosition(event?: UIEvent): void {
-    console.log({event: event, id: this.parentElementId})
-
     const parent: HTMLElement = document.getElementById(this.parentElementId)!
     const parentRect: DOMRect = parent.getBoundingClientRect()
 

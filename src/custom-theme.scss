@@ -12,9 +12,10 @@
 // Define the theme object.
 $Todo-theme: mat.define-theme((
   color: (
-    theme-type: light,
-    primary: mat.$azure-palette,
-    tertiary: mat.$blue-palette,
+    theme-type: dark,
+    //primary: #D9B3FF,
+    //secondary: #3E0872,
+    //white: #E9E6F0,
   ),
   density: (
     scale: 0,

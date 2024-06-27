@@ -12,9 +12,10 @@ import {AuthenticationService} from "../../../services/authentication.service";
 import {AlertService} from "../../../services/alert.service";
 import {Router} from "@angular/router";
 import {BottomGradientComponent} from "../../bottom-gradient/bottom-gradient.component";
-import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
+import {MatDrawerMode, MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
 import {SidebarService} from "../../../services/sidebar.service";
 import {AnimatedSidebarButtonComponent} from "../../animated-sidebar-button/animated-sidebar-button.component";
+import {ScreenSizeBreakpointService} from "../../../services/screen-size-breakpoint.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -28,18 +29,19 @@ export class DashboardComponent {
   selectedTodoListData?: TodoListData
   todoLists!: TodoListData[]
   isLoadComplete = false
-  sidebarOpened = true
+  sidebarOpened!: boolean
+  sidebarMode!: MatDrawerMode
 
   constructor(private todoListService: TodoListService, private authenticationService: AuthenticationService,
               public sidebarService: SidebarService, private alertService: AlertService,
-              private router: Router) {
+              private router: Router, private screenSizeBreakpointService: ScreenSizeBreakpointService) {
 
     if (this.authenticationService.isLoggedOut()) {
       this.alertService.alert([{message: "Please, login to access dashboard page.", type: "warning"}])
       this.router.navigateByUrl("/login")
     }
 
-    this.sidebarService.subscribe((state: boolean) => {
+    this.sidebarService.openedStatusChanged.subscribe((state: boolean) => {
       this.sidebarOpened = state
     })
 
@@ -54,6 +56,14 @@ export class DashboardComponent {
 
         this.isLoadComplete = true
       })
+
+    if (this.screenSizeBreakpointService.isCurrentLargerThan('sm')) {
+      this.sidebarOpened = true
+      this.sidebarMode = "side"
+    } else {
+      this.sidebarOpened = false
+      this.sidebarMode = "over"
+    }
   }
 
   selectTodoList(todoListData: TodoListData): void {
